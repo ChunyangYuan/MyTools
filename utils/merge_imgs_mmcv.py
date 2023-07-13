@@ -7,61 +7,90 @@ from PIL import Image
 import cv2
 import mmcv
 import numpy as np
+import matplotlib.pyplot as plt
 
 
-def crop_imgs_mmcv(single_img_path: str, output_folder: str, opt: argparse.ArgumentParser) -> None:
+def test(img_path: str) -> None:
+    img = mmcv.imread(img_path, flag='unchanged')  # bgr
+    # img = mmcv.image.bgr2rgb(img)
+    merged_img = np.zeros((500, 500, 3), dtype=np.uint8)
+    merged_img[0:256, 0:256, ...] = img
+    mmcv.imwrite(merged_img, 'test.png')
+    plt.imshow(merged_img)  # rgb
+    plt.axis('off')
+    plt.show()
+
+
+def merge_imgs_mmcv(imgs_path: str, output_folder: str, opt: argparse.ArgumentParser) -> None:
     """
-    crop_imgs_mmcv crop_images using mmcv
+    merge_imgs_mmcv merging all small images into a large image.
 
     Args:
-        single_img_path (str): single large image path.
-        output_folder (str): output folder path to save sub-images.
-        opt (argparse.ArgumentParser): options for crop_images.
-
-    Raises:
-        ValueError: only support 2 or 3 ndim images.
-
-    Returns:
-        _type_: None
+        imgs_path (str): small images path
+        output_folder (str): output dir
+        opt (argparse.ArgumentParser): settings
     """
+    if not osp.exists(output_folder):
+        os.mkdir(output_folder)
+
+    if not osp.exists(imgs_path):
+        print("imgs_path do not exist! please check out!")
+        sys.exit(1)
+
+    origin_channels = opt['origin_channels']
+    origin_width, origin_height = opt['origin_size']
     crop_size = opt['crop_size']
-    step = opt['step']
     thresh_size = opt['thresh_size']
-    img_name, extension = osp.splitext(osp.basename(single_img_path))
+    step = opt['step']
 
-    img = mmcv.imread(single_img_path, flag='unchanged')
+    # create canvas
+    merged_img = np.zeros((origin_height, origin_width,
+                          origin_channels), dtype=np.uint8)
 
-    if img.ndim == 2 or img.ndim == 3:
-        h, w = img.shape[:2]
-    else:
-        raise ValueError(f'Image ndim should be 2 or 3, but got {img.ndim}')
+    img_list = os.listdir(imgs_path)
+    for i in range(len(img_list)):
+        img_list[i] = osp.join(imgs_path, img_list[i])
 
-    h_space = np.arange(0, h - crop_size + 1, step)
-    if h - (h_space[-1] + crop_size) > thresh_size:
-        h_space = np.append(h_space, h - crop_size)
+    h_space = np.arange(0, origin_height - crop_size + 1, step)
+    if origin_height - (h_space[-1] + crop_size) > thresh_size:
+        h_space = np.append(h_space, origin_height - crop_size)
 
-    w_space = np.arange(0, w - crop_size + 1, step)
-    if w - (w_space[-1] + crop_size) > thresh_size:
-        w_space = np.append(w_space, w - crop_size)
+    w_space = np.arange(0, origin_width - crop_size + 1, step)
+    if origin_width - (w_space[-1] + crop_size) > thresh_size:
+        w_space = np.append(w_space, origin_width - crop_size)
 
     index = 0
     for x in h_space:
         for y in w_space:
+            img = mmcv.imread(img_list[index], flag='unchanged')
             index += 1
-            cropped_img = img[x:x + crop_size, y:y + crop_size, ...]
-            cv2.imwrite(
-                osp.join(output_folder,
-                         f'{img_name}_s{index:03d}{extension}'), cropped_img,
-                [cv2.IMWRITE_PNG_COMPRESSION, opt['compression_level']])
-    process_info = f'Processed {img_name} successfully!!!'
+            merged_img[x:x + crop_size, y:y + crop_size, ...] = img
+
+    merged_img_name = 'merged_' + osp.split(imgs_path)[-1] + '.png'
+    cv2.imwrite(
+        osp.join(output_folder, merged_img_name), merged_img,
+        [cv2.IMWRITE_PNG_COMPRESSION, opt['compression_level']])
+    process_info = f'Processed {merged_img_name} successfully!!!'
     print(process_info)
 
 
-def parse_args():
+def parse_args(origin_size: tuple = (3600, 3600)):
     parser = argparse.ArgumentParser(
         description='Prepare DIV2K dataset',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
+    parser.add_argument(
+        '--origin_size',
+        nargs='?',
+        default=origin_size,
+        type=tuple,
+        help='merged large image size(w,h)')
+    parser.add_argument(
+        '--origin_channels',
+        nargs='?',
+        default=3,
+        type=int,
+        help='merged large image size')
     parser.add_argument(
         '--crop-size',
         nargs='?',
@@ -98,62 +127,67 @@ def read_img(file_path: str):
     img = np.array(img)
     pass
 
+# TODO ==============
+# def merge_munich_s1_img():
+#     size = (5596, 6031)
+#     args = parse_args(size)
+#     munich_s1 = r'F:\Dataset\multi_sensor_landcover_classification\images\Munich_s1.tif'
+#     output = r'F:\Dataset\multi_sensor_landcover_classification\output_folder'
+#     merge_imgs_mmcv(munich_s1, output, args)
+#     pass
 
-def crop_munich_s1_img():
-    args = parse_args()
-    munich_s1 = r'F:\Dataset\multi_sensor_landcover_classification\images\Munich_s1.tif'
-    output = r'F:\Dataset\multi_sensor_landcover_classification\output_folder\munich_s1'
-    read_img(munich_s1)
-    # extract subimages
-    crop_imgs_mmcv(munich_s1, output, args)
+# TODO =====================
+# def merge_munich_s1_anno():
+#     size = (5596, 6031)
+#     args = parse_args(size)
+#     munich_anno = r'F:\Dataset\multi_sensor_landcover_classification\annotations\munich_anno.tif'
+#     output = r'F:\Dataset\multi_sensor_landcover_classification\output_folder'
+#     merge_imgs_mmcv(munich_anno, output, args)
+#     pass
+
+# TODO ===================================================
+# # a high-resolution SAR image that was acquired over Rosenehim by the TerraSAR-X satellite
+# def merge_Rosenehim_img():
+#     size = (3600, 3600)
+#     args = parse_args(size)
+#     sar_img = r'F:\Dataset\SAR\output_folder\sar'
+#     output = r'F:\Dataset\SAR\output_folder'
+#     merge_imgs_mmcv(sar_img, output, args)
+#     pass
+
+
+# def merge_Rosenehim_gt_img():
+#     size = (3600, 3600)
+#     args = parse_args(size)
+#     gt_img = r'F:\Dataset\SAR\output_folder\gt'
+#     output = r'F:\Dataset\SAR\output_folder'
+#     merge_imgs_mmcv(gt_img, output, args)
+#     pass
+# TODO =================
+
+def merge_Rosenehim_color_gt_img():
+    size = (3600, 3600)
+    args = parse_args(size)
+    color_gt_img = r'F:\Dataset\SAR\output_folder\color_gt'
+    output = r'F:\Dataset\SAR\output_folder'
+    merge_imgs_mmcv(color_gt_img, output, args)
     pass
 
 
-def crop_munich_s1_anno():
-    args = parse_args()
-    munich_anno = r'F:\Dataset\multi_sensor_landcover_classification\annotations\munich_anno.tif'
-    output = r'F:\Dataset\multi_sensor_landcover_classification\output_folder\munich_anno'
-    read_img(munich_anno)
-    # extract subimages
-    crop_imgs_mmcv(munich_anno, output, args)
-    pass
-
-
-# a high-resolution SAR image that was acquired over Rosenehim by the TerraSAR-X satellite
-def crop_Rosenehim_img():
-    args = parse_args()
-    sar_img = r'F:\Dataset\SAR\sar.png'
-    output = r'F:\Dataset\SAR\output_folder\sar'
-    # read_img(sar_img)
-    # extract subimages
-    crop_imgs_mmcv(sar_img, output, args)
-    pass
-
-
-def crop_Rosenehim_gt_img():
-    args = parse_args()
-    gt_img = r'F:\Dataset\SAR\gt.png'
-    output = r'F:\Dataset\SAR\output_folder\gt'
-    # read_img(gt_img)
-    # extract subimages
-    crop_imgs_mmcv(gt_img, output, args)
-    pass
-
-
-def crop_Rosenehim_color_gt_img():
-    args = parse_args()
-    color_gt_img = r'F:\Dataset\SAR\color_gt.png'
-    output = r'F:\Dataset\SAR\output_folder\color_gt'
-    # read_img(color_gt_img)
-    # extract subimages
-    crop_imgs_mmcv(color_gt_img, output, args)
-    pass
+def test_equal(color_gt: str = r'F:\Dataset\SAR\color_gt.png',
+               merged_color_gt: str = r'F:\Dataset\SAR\output_folder\merged_color_gt.png'):
+    gt = mmcv.imread(color_gt)
+    merged_gt = mmcv.imread(merged_color_gt)
+    print("gt.size={}".format(gt.size))
+    print(np.sum(gt == merged_gt))
 
 
 if __name__ == '__main__':
-    # crop_munich_s1_img()
-    # crop_munich_s1_anno()
-    # crop_Rosenehim_img()
-    # crop_Rosenehim_gt_img()
-    crop_Rosenehim_color_gt_img()
+    # test(r'F:\Dataset\SAR\output_folder\color_gt\color_gt_s001.png')
+    # merge_munich_s1_img()
+    # merge_munich_s1_anno()
+    # merge_Rosenehim_img()
+    # merge_Rosenehim_gt_img()
+    # merge_Rosenehim_color_gt_img()
+    test_equal()
     pass
