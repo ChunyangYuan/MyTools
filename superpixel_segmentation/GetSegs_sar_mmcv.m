@@ -4,19 +4,15 @@ clear;close all;
 
 n_superpixels=[4096,1024,256,64]; %16_4
 all_time = 0.0;
-dir='F:\dataset\SAR\256\sar_256\sar_';
+dir='F:\Dataset\SAR\output_folder\sar\sar_s';
 extension = '.png';
-save_dir='F:\dataset\SAR\256\segments_log\';
+save_dir='F:\Dataset\SAR\output_folder\segments\';
 %批处理图片进行超像素分割
 for i=1:225
     
-    num = num2str(i);
+    num = num2str(i,'%03d');
     path = [dir,num,extension];
 
-%     hsi = imread(path);
-%     [h,w,c]=size(hsi);
-%     I = uint8(hsi);
-%     E=uint8(zeros([h,w]));
     I = imread(path);
     I=double(I);
     [h, w] = size(I);
@@ -26,12 +22,8 @@ for i=1:225
     I=reshape(uint8(I),[h,w,1]);
 
     I = repmat(I, [1,1,3]); % 单通道变三通道
-
-%     gaussian滤波: 用于图像模糊化（去除细节和噪声）
+    % gaussian滤波: 用于图像模糊化（去除细节和噪声）
     I = imfilter(I, fspecial('gaussian',[5,5]), 'replicate');
-%     I = imfilter(I, fspecial('laplacian'), 'replicate');
-%     I = imfilter(I, fspecial('log'), 'replicate');
-
 
     % for ii=1:3
     %     I(:,:,ii)=imadjust(histeq(I(:,:,ii))); %调整图像对比度
@@ -48,12 +40,12 @@ for i=1:225
         GetSuperpixels(sh,n_superpixels(:,j));
         segmentmaps(j,:,:)=sh.label;
     end
-    save_path = [save_dir,'segments_',num,'.mat'];
+    save_path = [save_dir,'segments_s',num,'.mat'];
     save( save_path, 'segmentmaps' );
 end
 
 % save all_time
-filename = 'sar_segment_time.txt';
+filename = 'segment_time_sar_mmcv.txt';
 fid = fopen(filename, 'a');
 fprintf(fid,'%.10f\n', all_time);
 fprintf(fid,'================\n');

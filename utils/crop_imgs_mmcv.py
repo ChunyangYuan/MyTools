@@ -93,61 +93,68 @@ def parse_args():
     return vars(args)
 
 
-def read_img(file_path: str):
-    img = Image.open(file_path)
-    img = np.array(img)
-    pass
+# def read_img(file_path: str):
+#     img = Image.open(file_path)
+#     img = np.array(img)
+#     pass
 
 
-def crop_munich_s1_img():
+# def crop_munich_s1_img():
+#     args = parse_args()
+#     munich_s1 = r'F:\Dataset\multi_sensor_landcover_classification\images\Munich_s1.tif'
+#     output = r'F:\Dataset\multi_sensor_landcover_classification\output_folder\munich_s1'
+#     read_img(munich_s1)
+#     # extract subimages
+#     crop_imgs_mmcv(munich_s1, output, args)
+#     pass
+
+
+# def crop_munich_s1_anno():
+#     args = parse_args()
+#     munich_anno = r'F:\Dataset\multi_sensor_landcover_classification\annotations\munich_anno.tif'
+#     output = r'F:\Dataset\multi_sensor_landcover_classification\output_folder\munich_anno'
+#     read_img(munich_anno)
+#     # extract subimages
+#     crop_imgs_mmcv(munich_anno, output, args)
+#     pass
+
+def crop_munich_s1_color_gt():
     args = parse_args()
-    munich_s1 = r'F:\Dataset\multi_sensor_landcover_classification\images\Munich_s1.tif'
-    output = r'F:\Dataset\multi_sensor_landcover_classification\output_folder\munich_s1'
-    read_img(munich_s1)
-    # extract subimages
-    crop_imgs_mmcv(munich_s1, output, args)
-    pass
-
-
-def crop_munich_s1_anno():
-    args = parse_args()
-    munich_anno = r'F:\Dataset\multi_sensor_landcover_classification\annotations\munich_anno.tif'
-    output = r'F:\Dataset\multi_sensor_landcover_classification\output_folder\munich_anno'
-    read_img(munich_anno)
+    munich_anno = r'F:\Dataset\multi_sensor_landcover_classification\munich_s1_output_folder\munich_s1.png'
+    output = r'F:\Dataset\multi_sensor_landcover_classification\munich_s1_output_folder\munich_color_gt'
     # extract subimages
     crop_imgs_mmcv(munich_anno, output, args)
     pass
 
-
-# a high-resolution SAR image that was acquired over Rosenehim by the TerraSAR-X satellite
-def crop_Rosenehim_img():
-    args = parse_args()
-    sar_img = r'F:\Dataset\SAR\sar.png'
-    output = r'F:\Dataset\SAR\output_folder\sar'
-    # read_img(sar_img)
-    # extract subimages
-    crop_imgs_mmcv(sar_img, output, args)
-    pass
-
-
-def crop_Rosenehim_gt_img():
-    args = parse_args()
-    gt_img = r'F:\Dataset\SAR\gt.png'
-    output = r'F:\Dataset\SAR\output_folder\gt'
-    # read_img(gt_img)
-    # extract subimages
-    crop_imgs_mmcv(gt_img, output, args)
-    pass
+# # a high-resolution SAR image that was acquired over Rosenehim by the TerraSAR-X satellite
+# def crop_Rosenehim_img():
+#     args = parse_args()
+#     sar_img = r'F:\Dataset\SAR\sar.png'
+#     output = r'F:\Dataset\SAR\output_folder\sar'
+#     # read_img(sar_img)
+#     # extract subimages
+#     crop_imgs_mmcv(sar_img, output, args)
+#     pass
 
 
-def crop_Rosenehim_color_gt_img():
-    args = parse_args()
-    color_gt_img = r'F:\Dataset\SAR\color_gt.png'
-    output = r'F:\Dataset\SAR\output_folder\color_gt'
-    # read_img(color_gt_img)
-    # extract subimages
-    crop_imgs_mmcv(color_gt_img, output, args)
-    pass
+# def crop_Rosenehim_gt_img():
+#     args = parse_args()
+#     gt_img = r'F:\Dataset\SAR\gt.png'
+#     output = r'F:\Dataset\SAR\output_folder\gt'
+#     # read_img(gt_img)
+#     # extract subimages
+#     crop_imgs_mmcv(gt_img, output, args)
+#     pass
+
+
+# def crop_Rosenehim_color_gt_img():
+#     args = parse_args()
+#     color_gt_img = r'F:\Dataset\SAR\color_gt.png'
+#     output = r'F:\Dataset\SAR\output_folder\color_gt'
+#     # read_img(color_gt_img)
+#     # extract subimages
+#     crop_imgs_mmcv(color_gt_img, output, args)
+#     pass
 
 
 if __name__ == '__main__':
@@ -155,5 +162,6 @@ if __name__ == '__main__':
     # crop_munich_s1_anno()
     # crop_Rosenehim_img()
     # crop_Rosenehim_gt_img()
-    crop_Rosenehim_color_gt_img()
+    # crop_Rosenehim_color_gt_img()
+    crop_munich_s1_color_gt()
     pass

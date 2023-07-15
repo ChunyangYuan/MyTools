@@ -8,6 +8,7 @@ import cv2
 import mmcv
 import numpy as np
 import matplotlib.pyplot as plt
+import copy
 
 
 def test(img_path: str) -> None:
@@ -156,38 +157,79 @@ def read_img(file_path: str):
 #     pass
 
 
-# def merge_Rosenehim_gt_img():
-#     size = (3600, 3600)
-#     args = parse_args(size)
-#     gt_img = r'F:\Dataset\SAR\output_folder\gt'
-#     output = r'F:\Dataset\SAR\output_folder'
-#     merge_imgs_mmcv(gt_img, output, args)
-#     pass
-# TODO =================
-
-def merge_Rosenehim_color_gt_img():
-    size = (3600, 3600)
+def merge_Munich_classification_map():
+    size = (5596, 6031)
     args = parse_args(size)
-    color_gt_img = r'F:\Dataset\SAR\output_folder\color_gt'
-    output = r'F:\Dataset\SAR\output_folder'
-    merge_imgs_mmcv(color_gt_img, output, args)
+    gt_img = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\munich\munich_shgau'
+    output = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\munich'
+    merge_imgs_mmcv(gt_img, output, args)
     pass
 
 
-def test_equal(color_gt: str = r'F:\Dataset\SAR\color_gt.png',
-               merged_color_gt: str = r'F:\Dataset\SAR\output_folder\merged_color_gt.png'):
-    gt = mmcv.imread(color_gt)
-    merged_gt = mmcv.imread(merged_color_gt)
-    print("gt.size={}".format(gt.size))
-    print(np.sum(gt == merged_gt))
+def merge_Rosenehim_classification_map():
+    size = (3600, 3600)
+    args = parse_args(size)
+    gt_img = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\sar\gcn_ss'
+    output = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\sar'
+    merge_imgs_mmcv(gt_img, output, args)
+    pass
 
+
+# def merge_Rosenehim_color_gt_img():
+#     size = (3600, 3600)
+#     args = parse_args(size)
+#     color_gt_img = r'F:\Dataset\SAR\output_folder\color_gt'
+#     output = r'F:\Dataset\SAR\output_folder'
+#     merge_imgs_mmcv(color_gt_img, output, args)
+#     test_equal()
+#     pass
+
+
+# def test_equal(color_gt: str = r'F:\Dataset\SAR\color_gt.png',
+#                merged_color_gt: str = r'F:\Dataset\SAR\output_folder\merged_color_gt.png'):
+#     gt = mmcv.imread(color_gt)
+#     merged_gt = mmcv.imread(merged_color_gt)
+#     print("gt.size={}".format(gt.size))
+#     print(np.sum(gt == merged_gt))
+
+
+# def find_img(input_folder: str = r'F:\Dataset\SAR\sar_output_folder\gt'):
+#     img_list = os.listdir(input_folder)
+#     for i in range(len(img_list)):
+#         img_list[i] = osp.join(input_folder, img_list[i])
+#     for img_path in img_list:
+#         img = Image.open(img_path)
+#         img = np.array(img)
+#         if np.max(img) == 0:
+#             print(img_path)
+
+
+# def change_img_name(input_folder: str = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\MSSGU'):
+#     img_name_list = os.listdir(input_folder)
+#     new_name_list = copy.deepcopy(img_name_list)
+#     for i in range(len(img_name_list)):
+#         new_name = img_name_list[i][:8] + img_name_list[i][-4:]
+#         img_name_list[i] = osp.join(input_folder, img_name_list[i])
+#         new_name_list[i] = osp.join(input_folder, new_name)
+#         os.rename(img_name_list[i], new_name_list[i])
+
+
+# def mk_color_img():
+#     # 创建一个大小为（256, 256）的RGB图像，初始颜色为黄色
+#     width, height = 256, 256
+#     color = (255, 255, 0)  # RGB颜色值为黄色
+#     image_array = np.zeros((height, width, 3), dtype=np.uint8)
+#     image_array[:, :] = color
+
+#     # 从NumPy数组创建PIL图像对象
+#     image = Image.fromarray(image_array)
+#     image.save('yellow_image.png')
 
 if __name__ == '__main__':
-    # test(r'F:\Dataset\SAR\output_folder\color_gt\color_gt_s001.png')
-    # merge_munich_s1_img()
-    # merge_munich_s1_anno()
-    # merge_Rosenehim_img()
-    # merge_Rosenehim_gt_img()
+
     # merge_Rosenehim_color_gt_img()
-    test_equal()
+
+    merge_Rosenehim_classification_map()
+    # merge_Munich_classification_map()
+
     pass

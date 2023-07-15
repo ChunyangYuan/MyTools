@@ -4,19 +4,15 @@ clear;close all;
 
 n_superpixels=[4096,1024,256,64]; %16_4
 all_time = 0.0;
-dir='F:\dataset\SAR\256\sar_256\sar_';
-extension = '.png';
-save_dir='F:\dataset\SAR\256\segments_log\';
+dir='F:\Dataset\multi_sensor_landcover_classification\output_folder\munich_s1\Munich_s1_s';
+extension = '.tif';
+save_dir='F:\Dataset\multi_sensor_landcover_classification\output_folder\munich_segments\';
 %批处理图片进行超像素分割
-for i=1:225
+for i=1:624
     
-    num = num2str(i);
+    num = num2str(i,'%03d');
     path = [dir,num,extension];
 
-%     hsi = imread(path);
-%     [h,w,c]=size(hsi);
-%     I = uint8(hsi);
-%     E=uint8(zeros([h,w]));
     I = imread(path);
     I=double(I);
     [h, w] = size(I);
@@ -29,9 +25,6 @@ for i=1:225
 
 %     gaussian滤波: 用于图像模糊化（去除细节和噪声）
     I = imfilter(I, fspecial('gaussian',[5,5]), 'replicate');
-%     I = imfilter(I, fspecial('laplacian'), 'replicate');
-%     I = imfilter(I, fspecial('log'), 'replicate');
-
 
     % for ii=1:3
     %     I(:,:,ii)=imadjust(histeq(I(:,:,ii))); %调整图像对比度
@@ -53,7 +46,7 @@ for i=1:225
 end
 
 % save all_time
-filename = 'sar_segment_time.txt';
+filename = 'segment_time_munich_mmcv.txt';
 fid = fopen(filename, 'a');
 fprintf(fid,'%.10f\n', all_time);
 fprintf(fid,'================\n');

@@ -36,12 +36,13 @@ if not os.path.exists(bbox_dir):
 #     plt.savefig(save_fig_path, dpi=100, bbox_inches='tight', pad_inches=0)
 #     plt.close()
 
-def write_bbox_to_file(img, bboxes, idx):    
+
+def write_bbox_to_file(img, bboxes, idx):
 
     annotation = ET.Element('annotation')
     filename = ET.SubElement(annotation, 'filename')
     filename.text = idx
-    
+
     _height, _width = img.shape
     size = ET.SubElement(annotation, 'size')
     width = ET.SubElement(size, 'width')
@@ -51,7 +52,7 @@ def write_bbox_to_file(img, bboxes, idx):
     depth = ET.SubElement(size, 'depth')
     depth.text = str(1)
 
-    for bbox in bboxes: 
+    for bbox in bboxes:
         xmin, ymin, xmax, ymax = bbox
 
         label_object = ET.SubElement(annotation, 'object')
@@ -61,10 +62,10 @@ def write_bbox_to_file(img, bboxes, idx):
         _bbox = ET.SubElement(label_object, 'bbox')
         xmin_elem = ET.SubElement(_bbox, 'xmin')
         xmin_elem.text = str(xmin)
-        
+
         ymin_elem = ET.SubElement(_bbox, 'ymin')
         ymin_elem.text = str(ymin)
-        
+
         xmax_elem = ET.SubElement(_bbox, 'xmax')
         xmax_elem.text = str(xmax)
 
@@ -73,11 +74,13 @@ def write_bbox_to_file(img, bboxes, idx):
 
     tree = ET.ElementTree(annotation)
     tree_str = ET.tostring(tree.getroot(), encoding='unicode')
-    save_xml_path = os.path.expanduser(os.path.join(bbox_dir, idx + '_bbox.xml'))
+    save_xml_path = os.path.expanduser(
+        os.path.join(bbox_dir, idx + '_bbox.xml'))
     root = etree.fromstring(tree_str).getroottree()
     root.write(save_xml_path, pretty_print=True)
 
-def main():    
+
+def main():
     # load image and mask paths
     with open(idx_file, "r") as lines:
         # print("lines:", lines)
@@ -89,7 +92,7 @@ def main():
 
             img = mmcv.imread(_image, flag='grayscale')
             hei, wid = img.shape[:2]
-            mask = mmcv.imread(_mask, flag='grayscale')            
+            mask = mmcv.imread(_mask, flag='grayscale')
             label_img = skm.label(mask, background=0)
             regions = skm.regionprops(label_img)
             bboxes = []
@@ -110,14 +113,15 @@ def main():
                 ymin = max(1, ymin)
                 xmax = min(wid, xmax)
                 ymax = min(hei, ymax)
-                bboxes.append([xmin, ymin, xmax, ymax])      
+                bboxes.append([xmin, ymin, xmax, ymax])
             print(bboxes)
             # visualize
             # save_plot_image(img, bboxes, idx)
 
             # create xml for bboxes
             write_bbox_to_file(img, bboxes, idx)
-            # break    
+            # break
+
 
 if __name__ == '__main__':
     main()
