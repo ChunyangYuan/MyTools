@@ -157,20 +157,20 @@ def read_img(file_path: str):
 #     pass
 
 
-def merge_Munich_classification_map():
-    size = (5596, 6031)
+def merge_Rosenehim_classification_map():
+    size = (3600, 3600)
     args = parse_args(size)
-    gt_img = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\munich\munich_shgau'
-    output = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\munich'
+    gt_img = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\sar\gat'
+    output = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\sar'
     merge_imgs_mmcv(gt_img, output, args)
     pass
 
 
-def merge_Rosenehim_classification_map():
-    size = (3600, 3600)
+def merge_Munich_classification_map():
+    size = (5596, 6031)
     args = parse_args(size)
-    gt_img = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\sar\gcn_ss'
-    output = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\sar'
+    gt_img = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\munich\munich_gcn'
+    output = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\munich'
     merge_imgs_mmcv(gt_img, output, args)
     pass
 
@@ -213,23 +213,20 @@ def merge_Rosenehim_classification_map():
 #         new_name_list[i] = osp.join(input_folder, new_name)
 #         os.rename(img_name_list[i], new_name_list[i])
 
-
 # def mk_color_img():
 #     # 创建一个大小为（256, 256）的RGB图像，初始颜色为黄色
 #     width, height = 256, 256
 #     color = (255, 255, 0)  # RGB颜色值为黄色
 #     image_array = np.zeros((height, width, 3), dtype=np.uint8)
 #     image_array[:, :] = color
-
 #     # 从NumPy数组创建PIL图像对象
 #     image = Image.fromarray(image_array)
 #     image.save('yellow_image.png')
-
 if __name__ == '__main__':
 
     # merge_Rosenehim_color_gt_img()
 
-    merge_Rosenehim_classification_map()
-    # merge_Munich_classification_map()
+    # merge_Rosenehim_classification_map()
+    merge_Munich_classification_map()
 
     pass

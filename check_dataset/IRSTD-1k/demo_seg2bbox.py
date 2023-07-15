@@ -37,6 +37,49 @@ if not os.path.exists(bbox_dir):
 #     plt.close()
 
 
+def main():
+    # load image and mask paths
+    with open(idx_file, "r") as lines:
+        # print("lines:", lines)
+        for line in lines:
+            idx = line.rstrip('\n')
+            print(idx)
+            _image = os.path.join(img_dir, idx + ".png")
+            _mask = os.path.join(mask_dir, idx + ".png")
+
+            img = mmcv.imread(_image, flag='grayscale')
+            hei, wid = img.shape[:2]
+            mask = mmcv.imread(_mask, flag='grayscale')
+            label_img = skm.label(mask, background=0)
+            regions = skm.regionprops(label_img)
+            bboxes = []
+            for region in regions:
+                # convert starting from 0 to starting from 1
+                ymin, xmin, ymax, xmax = np.array(region.bbox) + 1
+                if enlarge_flag:
+                    ymin -= 0
+                    xmin -= 0
+                    xmax += 0
+                    ymax += 0
+
+                # ymin, xmin are inside the region, but xmax and ymax not
+                ymin -= 1
+                xmin -= 1
+                # boundary check
+                xmin = max(1, xmin)
+                ymin = max(1, ymin)
+                xmax = min(wid, xmax)
+                ymax = min(hei, ymax)
+                bboxes.append([xmin, ymin, xmax, ymax])
+            print(bboxes)
+            # visualize
+            # save_plot_image(img, bboxes, idx)
+
+            # create xml for bboxes
+            write_bbox_to_file(img, bboxes, idx)
+            # break
+
+
 def write_bbox_to_file(img, bboxes, idx):
 
     annotation = ET.Element('annotation')
@@ -78,49 +121,6 @@ def write_bbox_to_file(img, bboxes, idx):
         os.path.join(bbox_dir, idx + '_bbox.xml'))
     root = etree.fromstring(tree_str).getroottree()
     root.write(save_xml_path, pretty_print=True)
-
-
-def main():
-    # load image and mask paths
-    with open(idx_file, "r") as lines:
-        # print("lines:", lines)
-        for line in lines:
-            idx = line.rstrip('\n')
-            print(idx)
-            _image = os.path.join(img_dir, idx + ".jpg")
-            _mask = os.path.join(mask_dir, idx + ".png")
-
-            img = mmcv.imread(_image, flag='grayscale')
-            hei, wid = img.shape[:2]
-            mask = mmcv.imread(_mask, flag='grayscale')
-            label_img = skm.label(mask, background=0)
-            regions = skm.regionprops(label_img)
-            bboxes = []
-            for region in regions:
-                # convert starting from 0 to starting from 1
-                ymin, xmin, ymax, xmax = np.array(region.bbox) + 1
-                if enlarge_flag:
-                    ymin -= 0
-                    xmin -= 0
-                    xmax += 0
-                    ymax += 0
-
-                # ymin, xmin are inside the region, but xmax and ymax not
-                ymin -= 1
-                xmin -= 1
-                # boundary check
-                xmin = max(1, xmin)
-                ymin = max(1, ymin)
-                xmax = min(wid, xmax)
-                ymax = min(hei, ymax)
-                bboxes.append([xmin, ymin, xmax, ymax])
-            print(bboxes)
-            # visualize
-            # save_plot_image(img, bboxes, idx)
-
-            # create xml for bboxes
-            write_bbox_to_file(img, bboxes, idx)
-            # break
 
 
 if __name__ == '__main__':
