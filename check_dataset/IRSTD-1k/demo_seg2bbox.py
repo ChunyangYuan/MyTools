@@ -10,19 +10,19 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 from lxml import etree
+import logging
 
-enlarge_flag = True
+# enlarge_flag = True
 
-curr_dir = Path(__file__).parent.absolute()
-data_root = 'data/sirst'
-idx_file = os.path.expanduser(os.path.join(data_root, 'splits',
-                                           'trainvaltest.txt'))
-img_dir = os.path.expanduser(os.path.join(data_root, 'imgs'))
-mask_dir = os.path.expanduser(os.path.join(data_root, 'masks'))
-if enlarge_flag:
-    bbox_dir = os.path.expanduser(os.path.join(data_root, 'enlarge_bboxes'))
-else:
-    bbox_dir = os.path.expanduser(os.path.join(data_root, 'bboxes'))
+data_root = 'E:\dataset\IRSTD-1k'
+idx_file = os.path.join(data_root, 'splits', 'trainvaltest.txt')
+img_dir = os.path.join(data_root, 'IRSTD1k_Img')
+mask_dir = os.path.join(data_root, 'IRSTD1k_Label')
+# if enlarge_flag:
+#     bbox_dir = os.path.expanduser(os.path.join(data_root, 'enlarge_bboxes'))
+# else:
+#     bbox_dir = os.path.expanduser(os.path.join(data_root, 'bboxes'))
+bbox_dir = r'E:\dataset\IRSTD-1k\BBox'
 if not os.path.exists(bbox_dir):
     os.makedirs(bbox_dir)
 
@@ -40,10 +40,10 @@ if not os.path.exists(bbox_dir):
 def main():
     # load image and mask paths
     with open(idx_file, "r") as lines:
-        # print("lines:", lines)
+        # logging.info("lines:", lines)
         for line in lines:
             idx = line.rstrip('\n')
-            print(idx)
+            logging.info(idx)
             _image = os.path.join(img_dir, idx + ".png")
             _mask = os.path.join(mask_dir, idx + ".png")
 
@@ -56,13 +56,15 @@ def main():
             for region in regions:
                 # convert starting from 0 to starting from 1
                 ymin, xmin, ymax, xmax = np.array(region.bbox) + 1
-                if enlarge_flag:
-                    ymin -= 0
-                    xmin -= 0
-                    xmax += 0
-                    ymax += 0
+                # TODO =========
+                # if enlarge_flag:
+                #     ymin -= 0
+                #     xmin -= 0
+                #     xmax += 0
+                #     ymax += 0
 
                 # ymin, xmin are inside the region, but xmax and ymax not
+                # e.g., bbox[ymin,xmin, ymax,xmax] = [0,0,20,20] -> [0,0,19,19] included
                 ymin -= 1
                 xmin -= 1
                 # boundary check
@@ -71,7 +73,7 @@ def main():
                 xmax = min(wid, xmax)
                 ymax = min(hei, ymax)
                 bboxes.append([xmin, ymin, xmax, ymax])
-            print(bboxes)
+            logging.info(bboxes)
             # visualize
             # save_plot_image(img, bboxes, idx)
 
@@ -102,7 +104,7 @@ def write_bbox_to_file(img, bboxes, idx):
         name = ET.SubElement(label_object, 'name')
         name.text = 'Target'
 
-        _bbox = ET.SubElement(label_object, 'bbox')
+        _bbox = ET.SubElement(label_object, 'bndbox')
         xmin_elem = ET.SubElement(_bbox, 'xmin')
         xmin_elem.text = str(xmin)
 
@@ -117,8 +119,7 @@ def write_bbox_to_file(img, bboxes, idx):
 
     tree = ET.ElementTree(annotation)
     tree_str = ET.tostring(tree.getroot(), encoding='unicode')
-    save_xml_path = os.path.expanduser(
-        os.path.join(bbox_dir, idx + '_bbox.xml'))
+    save_xml_path = os.path.join(bbox_dir, idx + '.xml')
     root = etree.fromstring(tree_str).getroottree()
     root.write(save_xml_path, pretty_print=True)
 
