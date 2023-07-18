@@ -15,14 +15,14 @@ import logging
 # enlarge_flag = True
 
 data_root = 'E:\dataset\IRSTD-1k'
-idx_file = os.path.join(data_root, 'splits', 'trainvaltest.txt')
+idx_file = os.path.join(data_root, 'splits', 'test.txt')
 img_dir = os.path.join(data_root, 'IRSTD1k_Img')
 mask_dir = os.path.join(data_root, 'IRSTD1k_Label')
 # if enlarge_flag:
 #     bbox_dir = os.path.expanduser(os.path.join(data_root, 'enlarge_bboxes'))
 # else:
 #     bbox_dir = os.path.expanduser(os.path.join(data_root, 'bboxes'))
-bbox_dir = r'E:\dataset\IRSTD-1k\BBox'
+bbox_dir = os.path.join(data_root, 'BBox_test')
 if not os.path.exists(bbox_dir):
     os.makedirs(bbox_dir)
 
