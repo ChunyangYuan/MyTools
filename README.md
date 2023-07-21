@@ -1,6 +1,6 @@
 # zoomir
 ## The data folder structure:
-```c
+```shell
 zoomir  
 ├── zoomir  
 ├── tools  
