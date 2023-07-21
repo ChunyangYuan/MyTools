@@ -1,7 +1,7 @@
 # zoomir
 ## The data folder structure:
-zoomir
-├── zoomir
+zoomir  
+├── zoomir  
 ├── tools
 ├── configs
 ├── data
