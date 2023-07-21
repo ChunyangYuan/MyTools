@@ -1,6 +1,6 @@
 # zoomir
 ## The data folder structure:
-```python
+```c
 zoomir  
 ├── zoomir  
 ├── tools  
