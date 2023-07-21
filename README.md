@@ -2,19 +2,19 @@
 ## The data folder structure:
 zoomir  
 ├── zoomir  
-├── tools
-├── configs
-├── data
-│   ├── SIRSTdevkit-master
-│   │   ├── PNGImages
-│   │   │   ├── 211_HD_1.png
-│   │   │   ├── 211_HD_126.png
-│   │   │   ├── ...
-│   │   │   ├── TH0517_12.png
-│   │   ├── PNGImages_2x(sr)
-│   │   ├── PNGImages_2x_bicubic
-│   │   ├── SIRST
-│   │   │   ├── BBox
+├── tools  
+├── configs  
+├── data  
+│   ├── SIRSTdevkit-master  
+│   │   ├── PNGImages  
+│   │   │   ├── 211_HD_1.png  
+│   │   │   ├── 211_HD_126.png  
+│   │   │   ├── ...  
+│   │   │   ├── TH0517_12.png  
+│   │   ├── PNGImages_2x(sr)  
+│   │   ├── PNGImages_2x_bicubic  
+│   │   ├── SIRST   
+│   │   │   ├── BBox  
 │   │   │   │   ├── 211_HD_1.xml
 │   │   │   │   ├── 211_HD_126.xml
 │   │   │   │   ├── ...
