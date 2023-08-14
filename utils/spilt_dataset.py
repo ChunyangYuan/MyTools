@@ -35,9 +35,9 @@ trainval_set, test_set = split_dataset(dataset, split_ratio)
 
 
 # 设置文件路径和内容
-trainval = 'misc3_trainval.txt'
+trainval = r'E:\dataset\SIRSTdevkit-master\Splits\misc3_trainval.txt'
 
-test = 'misc3_test.txt'
+test = r'E:\dataset\SIRSTdevkit-master\Splits\misc3_test.txt'
 # 生成txt文件
 generate_txt_file(trainval, trainval_set)
 generate_txt_file(test, test_set)

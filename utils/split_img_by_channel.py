@@ -27,6 +27,6 @@ def pick_3channel_img(input_folder: str, output_folder: str):
         print(r'pick over!')
 
 
-data_path = r'F:\dataset\SIRSTdevkit-master\Misc'
-output = r'F:\dataset\SIRSTdevkit-master\Misc_ch3'
+data_path = r'E:\dataset\SIRSTdevkit-master\stime'
+output = r'E:\dataset\SIRSTdevkit-master\Misc_ch3'
 pick_3channel_img(data_path, output)

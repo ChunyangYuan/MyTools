@@ -44,14 +44,15 @@ def img_interpolate_F(input_folder: str, output_folder: str, scale: int, mode: s
         img = img.numpy()
         img = Image.fromarray(img)
         img.save(osp.join(output_folder, osp.basename(img_path)))
+        print('{} was sinterpolated successfully!'.format(osp.basename(img_path)))
     else:
         print('interpolate over!')
 
 
 if __name__ == "__main__":
-    input_path = r'F:\dataset\SIRSTdevkit-master\mini_Misc'
-    scale = 4
+    input_path = r'E:\dataset\IRSTD-1k\IRSTD1k_Img'
+    scale = 2
     # mode = 'nearest' | 'linear' | 'bilinear' | 'bicubic' | 'trilinear' | 'area' | 'nearest-exact'. Default: 'nearest'
     mode = 'bicubic'
-    output_path = input_path+'_x'+str(scale)+'_'+mode
+    output_path = r'E:\dataset\IRSTD-1k\IRSTD1k_Img_2x_bicubic'
     img_interpolate_F(input_path, output_path, scale, mode)

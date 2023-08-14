@@ -14,13 +14,13 @@ def copy_images(source_folder, destination_folder, image_names):
 
 
 # 示例图片文件夹路径和输出文件夹路径
-source_folder = 'E:\dataset\SIRSTdevkit-master\SIRST\BBox_2X'
-destination_folder = 'E:\dataset\SIRSTdevkit-master\SIRST\misc3_bbox_2x'
+source_folder = 'E:\dataset\SIRSTdevkit-master\PNGImages_2X'
+destination_folder = 'E:\dataset\SIRSTdevkit-master\Misc_ch3_2x'
 
 # 示例图片名称列表
 input_dir = r'E:\dataset\SIRSTdevkit-master\Misc_ch3'
 image_names = os.listdir(input_dir)
-image_names = [os.path.splitext(img)[0]+'.xml' for img in image_names]
+# image_names = [os.path.splitext(img)[0]+'.xml' for img in image_names]
 
 # 复制图片到输出文件夹
 copy_images(source_folder, destination_folder, image_names)
