@@ -24,11 +24,10 @@ def generate_LiDAR_mat(tif_path: str, output_folder: str):
     pass
 
 
-def generate_train_test_gt_1_mat(train_tif: str, val_tif: str, output_folder: str):
-    # TODO -> 2013_IEEE_GRSS_DF_Contest_Samples_VA.tif 是验证集标签，但这里当做了test，可能不对！！！
-    # 作者完全有可能自己从2013_IEEE_GRSS_DF_Contest_Samples_TR.tif 这个训练标签中随机采样一部分标签当做验证集的标签样本！！！（自己看论文和代码）
+def generate_train_test_gt_1_mat(train_tif: str, test_tif: str, output_folder: str):
+
     train_img = Image.open(train_tif)
-    val_img = Image.open(val_tif)
+    val_img = Image.open(test_tif)
 
     train_data = np.array(train_img)
     val_data = np.array(val_img)
@@ -42,10 +41,10 @@ def generate_train_test_gt_1_mat(train_tif: str, val_tif: str, output_folder: st
 lidar_tif = r'E:\dataset\HS-LiDAR data\Houston2013\2013_IEEE_GRSS_DF_Contest_LiDAR.tif'
 # CASI数据是由Compact Airborne Spectrographic Imager（紧凑型机载光谱成像仪）获取的
 casi_tif = r'E:\dataset\HS-LiDAR data\Houston2013\2013_IEEE_GRSS_DF_Contest_CASI.tif'
-train_tif = r'E:\dataset\HS-LiDAR data\Houston2013\2013_IEEE_GRSS_DF_Contest_Samples_TR.tif'
-val_tif = r'E:\dataset\HS-LiDAR data\Houston2013\2013_IEEE_GRSS_DF_Contest_Samples_VA.tif'
+train_tif = r'F:\PythonProjects\MyTools\Houston2013_train.tif'
+test_tif = r'F:\PythonProjects\MyTools\Houston2013_test.tif'
 save_dir = r'E:\dataset\HS-LiDAR data\Houston2013'
 
 # generate_Houston_mat(casi_tif, save_dir)
-generate_LiDAR_mat(lidar_tif, save_dir)
-# generate_train_test_gt_1_mat(train_tif, val_tif, save_dir)
+# generate_LiDAR_mat(lidar_tif, save_dir)
+generate_train_test_gt_1_mat(train_tif, test_tif, save_dir)

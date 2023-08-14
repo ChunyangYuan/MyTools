@@ -50,9 +50,9 @@ def img_interpolate_F(input_folder: str, output_folder: str, scale: int, mode: s
 
 
 if __name__ == "__main__":
-    input_path = r'E:\dataset\IRSTD-1k\IRSTD1k_Img'
+    input_path = r'E:\dataset\SIRSTdevkit-master\PNGImages'
     scale = 2
     # mode = 'nearest' | 'linear' | 'bilinear' | 'bicubic' | 'trilinear' | 'area' | 'nearest-exact'. Default: 'nearest'
     mode = 'bicubic'
-    output_path = r'E:\dataset\IRSTD-1k\IRSTD1k_Img_2x_bicubic'
+    output_path = r'E:\dataset\SIRSTdevkit-master\PNGImages_2x_bicubic'
     img_interpolate_F(input_path, output_path, scale, mode)

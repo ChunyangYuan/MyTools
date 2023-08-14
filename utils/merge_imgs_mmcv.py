@@ -157,24 +157,6 @@ def read_img(file_path: str):
 #     pass
 
 
-def merge_Rosenehim_classification_map():
-    size = (3600, 3600)
-    args = parse_args(size)
-    gt_img = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\sar\sar_cegcn'
-    output = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\sar'
-    merge_imgs_mmcv(gt_img, output, args)
-    pass
-
-
-def merge_Munich_classification_map():
-    size = (5596, 6031)
-    args = parse_args(size)
-    gt_img = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\munich\munich_gat'
-    output = r'C:\Users\LwhYcy\Desktop\contrast_exp\classification_map\munich'
-    merge_imgs_mmcv(gt_img, output, args)
-    pass
-
-
 # def merge_Rosenehim_color_gt_img():
 #     size = (3600, 3600)
 #     args = parse_args(size)
@@ -222,6 +204,24 @@ def merge_Munich_classification_map():
 #     # 从NumPy数组创建PIL图像对象
 #     image = Image.fromarray(image_array)
 #     image.save('yellow_image.png')
+def merge_Rosenehim_classification_map():
+    size = (3600, 3600)
+    args = parse_args(size)
+    gt_img = r'C:\Users\LwhYcy\Desktop\classification_map\sar\segnet'
+    output = r'C:\Users\LwhYcy\Desktop\classification_map\sar'
+    merge_imgs_mmcv(gt_img, output, args)
+    pass
+
+
+def merge_Munich_classification_map():
+    size = (5596, 6031)
+    args = parse_args(size)
+    gt_img = r'C:\Users\LwhYcy\Desktop\classification_map\munich\segnet'
+    output = r'C:\Users\LwhYcy\Desktop\classification_map\munich'
+    merge_imgs_mmcv(gt_img, output, args)
+    pass
+
+
 if __name__ == '__main__':
 
     # merge_Rosenehim_color_gt_img()

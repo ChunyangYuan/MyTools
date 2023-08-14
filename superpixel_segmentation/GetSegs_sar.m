@@ -1,16 +1,19 @@
 clear;close all;
-
-% n_superpixels=[2048,1024,512,256];
-
-n_superpixels=[4096,1024,256,64]; %16_4
+% n_superpixels=[16384,4096,1024,256]; %4_4
+% n_superpixels=[8192,2048,512,128]; %8_4
+% n_superpixels=[4096,1024,256,64]; %16_4
+% n_superpixels=[2048,512,128,32]; %32_4
+% n_superpixels=[1024,256,64,16]; %64_4
+% n_superpixels=[512,128,32,8]; %128_4
+n_superpixels=[256,64,16,4]; %256_4
 all_time = 0.0;
-dir='F:\dataset\SAR\256\sar_256\sar_';
+dir='F:\Dataset\SAR\sar_output_folder\sar\sar_s';
 extension = '.png';
-save_dir='F:\dataset\SAR\256\segments_log\';
+save_dir='F:\Dataset\SAR\sar_output_folder\segments_256\';
 %批处理图片进行超像素分割
 for i=1:225
     
-    num = num2str(i);
+    num = num2str(i,'%03d');
     path = [dir,num,extension];
 
 %     hsi = imread(path);

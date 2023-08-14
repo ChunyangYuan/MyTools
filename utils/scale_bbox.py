@@ -6,7 +6,7 @@ import copy
 
 def BBox_2X(xml_folder: str, output_folder: str, scale: int = 2) -> None:
     """
-    BBox_2X 批处理voc格式的xml注释文件
+    BBox_2X 批处理xml文件
 
     Args:
         xml_folder (str): xml文件存放文件夹路径
@@ -62,6 +62,5 @@ def scale_BBox_and_save(xml_path: str, save_path: str, scale: int = 2) -> None:
 
 
 if __name__ == "__main__":
-    xml_folder = r'E:\dataset\IRSTD-1k\Annotations'
-    output_folder = r'E:\dataset\IRSTD-1k\Annotations_2x'
-    BBox_2X(xml_folder, output_folder)
+    BBox_2X(r'E:\dataset\IRSTD-1k\Annotations',
+            r'E:\dataset\IRSTD-1k\Annotations_2x')

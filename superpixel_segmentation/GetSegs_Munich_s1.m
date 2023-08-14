@@ -1,16 +1,20 @@
 clear;close all;
 
-% n_superpixels=[2048,1024,512,256];
 
-n_superpixels=[4096,1024,256,64]; %16_4
+% n_superpixels=[8192,2048,512,128]; %8_4
+% n_superpixels=[4096,1024,256,64]; %16_4
+% n_superpixels=[2048,512,128,32]; %32_4
+% n_superpixels=[1024,256,64,16]; %64_4
+% n_superpixels=[512,128,32,8]; %128_4
+n_superpixels=[256,64,16,4]; %256_4
 all_time = 0.0;
-dir='F:\dataset\multi_sensor_landcover_classification\Munich_s1\Munich_s1_trimmed_';
+dir='F:\Dataset\multi_sensor_landcover_classification\munich_s1_output_folder\munich_s1\Munich_s1_s';
 extension = '.tif';
-save_dir='F:\dataset\multi_sensor_landcover_classification\segments\';
+save_dir='F:\Dataset\multi_sensor_landcover_classification\munich_s1_output_folder\segments_256\';
 %批处理图片进行超像素分割
-for i=1:483
+for i=1:624
     
-    num = num2str(i);
+    num = num2str(i,'%03d');
     path = [dir,num,extension];
 
     I = imread(path);

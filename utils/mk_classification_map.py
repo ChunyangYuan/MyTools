@@ -53,11 +53,11 @@ def draw_sar_gt(gt_path: str = r'F:\Dataset\SAR\gt.png'):
     img = Image.open(gt_path)
     class_array = np.array(img)
     sar_class_colors = {
-        0: (0, 0, 0),       # 类别0的颜色为黑色
-        1: (0, 0, 255),     # 类别1的颜色为蓝
-        2: (0, 255, 0),     # 类别2的颜色为绿色
-        3: (255, 255, 0),      # 类别3的颜色为黄
-        4: (255, 0, 0)  # 红
+        0: (0, 0, 0),       # 类别0的颜色为黑色 unknown
+        1: (0, 0, 255),     # 类别1的颜色为蓝 water
+        2: (0, 255, 0),     # 类别2的颜色为绿色 forest
+        3: (255, 255, 0),      # 类别3的颜色为黄 building
+        4: (255, 0, 0)  # 红 farmland
     }
 
     # 创建新的RGB图像数组
@@ -119,7 +119,7 @@ def draw_munich_s1_map(
     class_array = np.array(img)
     print("sum(class=0)={}".format(np.sum(class_array == 0)))
     munich_class_colors = {
-        0: (0, 0, 0),       # 类别0的颜色为黑色
+        0: (0, 0, 0),       # 类别0的颜色为黑色 unknown
         1: (222, 184, 135),     # 浅棕色，agriculture field
         2: (0, 100, 0),     # 类别2的颜色为深绿， forest
         3: (203, 0, 0),      # 深红，built-up

@@ -6,6 +6,8 @@ import os.path as osp
 import os
 import random
 
+random.seed(2023)
+
 
 def split_dataset(dataset, split_ratio):
     random.shuffle(dataset)  # 随机打乱数据集
@@ -22,7 +24,7 @@ def generate_txt_file(file_path, content_lines):
 
 
 # misc数据集
-input_folder = r'E:\dataset\SIRSTdevkit-master\Misc_ch3'
+input_folder = r'E:\dataset\SIRSTdevkit-master\PNGImages'
 img_list = list(mmengine.scandir(input_folder))
 dataset = [osp.splitext(img)[0] for img in img_list]
 # img_list = os.listdir(input_folder)
@@ -35,9 +37,9 @@ trainval_set, test_set = split_dataset(dataset, split_ratio)
 
 
 # 设置文件路径和内容
-trainval = r'E:\dataset\SIRSTdevkit-master\Splits\misc3_trainval.txt'
+trainval = r'E:\dataset\SIRSTdevkit-master\Splits\trainval.txt'
 
-test = r'E:\dataset\SIRSTdevkit-master\Splits\misc3_test.txt'
+test = r'E:\dataset\SIRSTdevkit-master\Splits\test.txt'
 # 生成txt文件
 generate_txt_file(trainval, trainval_set)
 generate_txt_file(test, test_set)
