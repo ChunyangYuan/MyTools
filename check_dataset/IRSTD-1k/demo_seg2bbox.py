@@ -11,30 +11,42 @@ except ImportError:
     import xml.etree.ElementTree as ET
 from lxml import etree
 import logging
+import matplotlib.patches as patches
+import time
 
-# enlarge_flag = True
 
+enlarge_flag = True
+padding = 0
+visualize = True
 data_root = 'E:\dataset\IRSTD-1k'
-idx_file = os.path.join(data_root, 'splits', 'test.txt')
+idx_file = os.path.join(data_root, 'splits', 'test_.txt')
 img_dir = os.path.join(data_root, 'IRSTD1k_Img')
 mask_dir = os.path.join(data_root, 'IRSTD1k_Label')
-# if enlarge_flag:
-#     bbox_dir = os.path.expanduser(os.path.join(data_root, 'enlarge_bboxes'))
-# else:
-#     bbox_dir = os.path.expanduser(os.path.join(data_root, 'bboxes'))
 bbox_dir = os.path.join(data_root, 'BBox_test')
 if not os.path.exists(bbox_dir):
     os.makedirs(bbox_dir)
 
-# def save_plot_image(img, bboxes, idx):
-#     plt.imshow(img, cmap='gray', vmin=0, vmax=255)
-#     for xmin, ymin, xmax, ymax in bboxes:
-#         # plt.plot(xc, yc, '+')
-#         # TODO: plot bbox
-#     plt.axis('off')
-#     save_fig_path = os.path.expanduser(os.path.join(bbox_dir, idx + '.png'))
-#     plt.savefig(save_fig_path, dpi=100, bbox_inches='tight', pad_inches=0)
-#     plt.close()
+
+def save_plot_image(img, bboxes, idx, show=False):
+    # 创建绘图对象
+    fig, ax = plt.subplots()
+    plt.axis('off')
+    plt.title(idx + '.png')
+    # 显示灰度图像
+    ax.imshow(img, cmap='gray', vmin=0, vmax=255)
+    for xmin, ymin, xmax, ymax in bboxes:
+        # 创建矩形框
+        rect = patches.Rectangle(
+            (xmin, ymin), xmax - xmin, ymax - ymin, linewidth=1, edgecolor='r', facecolor='none')
+        # 将矩形框添加到图像上
+        ax.add_patch(rect)
+
+    save_fig_path = os.path.expanduser(os.path.join(bbox_dir, idx + '.png'))
+    plt.savefig(save_fig_path, dpi=100, bbox_inches='tight', pad_inches=0)
+    # 显示图像, 手动关闭图片窗口, 程序才能继续执行
+    if show:
+        plt.show()
+        plt.close()
 
 
 def main():
@@ -55,27 +67,28 @@ def main():
             bboxes = []
             for region in regions:
                 # convert starting from 0 to starting from 1
-                ymin, xmin, ymax, xmax = np.array(region.bbox) + 1
-                # TODO =========
-                # if enlarge_flag:
-                #     ymin -= 0
-                #     xmin -= 0
-                #     xmax += 0
-                #     ymax += 0
+                ymin, xmin, ymax, xmax = np.array(region.bbox)
+
+                if enlarge_flag:
+                    ymin -= padding
+                    xmin -= padding
+                    xmax += padding
+                    ymax += padding
 
                 # ymin, xmin are inside the region, but xmax and ymax not
                 # e.g., bbox[ymin,xmin, ymax,xmax] = [0,0,20,20] -> [0,0,19,19] included
-                ymin -= 1
-                xmin -= 1
+                # ymin -= 1
+                # xmin -= 1
                 # boundary check
-                xmin = max(1, xmin)
-                ymin = max(1, ymin)
+                xmin = max(0, xmin)
+                ymin = max(0, ymin)
                 xmax = min(wid, xmax)
                 ymax = min(hei, ymax)
                 bboxes.append([xmin, ymin, xmax, ymax])
             logging.info(bboxes)
             # visualize
-            # save_plot_image(img, bboxes, idx)
+            if visualize:
+                save_plot_image(img, bboxes, idx)
 
             # create xml for bboxes
             write_bbox_to_file(img, bboxes, idx)

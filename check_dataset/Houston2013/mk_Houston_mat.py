@@ -34,7 +34,7 @@ def generate_train_test_gt_1_mat(train_tif: str, test_tif: str, output_folder: s
 
     save_path = osp.join(output_folder, 'train_test_gt_1.mat')
     sio.savemat(save_path, {'train_data': train_data, 'test_data': val_data})
-    print('train_test_gt_1.mat is generated!')
+    print('train_test_gt.mat is generated!')
     pass
 
 

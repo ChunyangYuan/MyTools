@@ -3,7 +3,7 @@ import numpy as np
 import os
 import os.path as osp
 # import cv2
-# import PIL.Image as Image
+import PIL.Image as Image
 from skimage import io
 # import spectral
 
@@ -14,13 +14,14 @@ hdr = r'E:\dataset\2013_DFTC\2013_DFTC\2013_IEEE_GRSS_DF_Contest_CASI.hdr'
 # img = mmcv.imread(img_path, flag='unchanged')
 # img = cv2.imread(img_path)
 
-# img = Image.open(img_path)
-# data = np.array(img)
-
+img = Image.open(r'processed_image.png')
+data = np.array(img)
+print(np.unique(data))
+pass
 
 # 专门用于处理高光谱图像的库，例如spectral、scikit-image等
 
 
-image = io.imread(img_path)
+# image = io.imread(img_path)
 # img = spectral.open_image(hdr)
 pass
