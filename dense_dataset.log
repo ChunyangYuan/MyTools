@@ -1,0 +1,101 @@
+2023-08-17 08:59:25,635 - logger - INFO - ==================================================
+2023-08-17 08:59:25,795 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:10
+2023-08-17 09:03:22,911 - logger - INFO - ==================================================
+2023-08-17 09:03:22,924 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:9
+2023-08-17 09:03:29,317 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:16
+2023-08-17 09:03:31,755 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:14
+2023-08-17 09:03:33,204 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:6
+2023-08-17 09:03:35,533 - logger - INFO - Processing complete.
+2023-08-17 09:07:03,104 - logger - INFO - ==================================================
+2023-08-17 09:07:03,117 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:8
+2023-08-17 09:08:18,318 - logger - INFO - ==================================================
+2023-08-17 09:08:18,330 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:8
+2023-08-17 09:08:21,676 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:17
+2023-08-17 09:08:23,152 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:16
+2023-08-17 09:08:24,754 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:5
+2023-08-17 09:08:26,365 - logger - INFO - Processing complete.
+2023-08-17 09:08:56,188 - logger - INFO - ==================================================
+2023-08-17 09:08:56,201 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:13
+2023-08-17 09:09:00,942 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:17
+2023-08-17 09:09:03,396 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:15
+2023-08-17 09:09:05,000 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:4
+2023-08-17 09:09:06,464 - logger - INFO - Processing complete.
+2023-08-17 09:14:54,124 - logger - INFO - ==================================================
+2023-08-17 09:14:54,137 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:8
+2023-08-17 09:15:25,375 - logger - INFO - ==================================================
+2023-08-17 09:15:25,388 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:9
+2023-08-17 09:19:02,616 - logger - INFO - ==================================================
+2023-08-17 09:19:02,629 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:8
+2023-08-17 09:19:03,724 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:18
+2023-08-17 09:19:04,768 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:12
+2023-08-17 09:19:05,800 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:4
+2023-08-17 09:19:06,830 - logger - INFO - Processing complete.
+2023-08-17 09:19:15,792 - logger - INFO - ==================================================
+2023-08-17 09:19:15,805 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:8
+2023-08-17 09:19:16,863 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:15
+2023-08-17 09:19:17,924 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:11
+2023-08-17 09:19:18,982 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:7
+2023-08-17 09:19:20,026 - logger - INFO - Processing complete.
+2023-08-17 09:20:02,632 - logger - INFO - ==================================================
+2023-08-17 09:20:02,645 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:9
+2023-08-17 09:20:03,883 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:15
+2023-08-17 09:20:04,948 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:10
+2023-08-17 09:20:06,023 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:7
+2023-08-17 09:20:07,079 - logger - INFO - Processing complete.
+2023-08-17 09:21:58,918 - logger - INFO - ==================================================
+2023-08-17 09:21:58,940 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:9
+2023-08-17 09:21:59,978 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:22
+2023-08-17 09:22:01,024 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:16
+2023-08-17 09:22:02,072 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:6
+2023-08-17 09:22:03,106 - logger - INFO - Processing complete.
+2023-08-17 09:22:10,009 - logger - INFO - ==================================================
+2023-08-17 09:22:10,009 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:7
+2023-08-17 09:22:11,274 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:19
+2023-08-17 09:22:12,335 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:8
+2023-08-17 09:22:13,397 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:7
+2023-08-17 09:22:14,452 - logger - INFO - Processing complete.
+2023-08-17 09:22:50,405 - logger - INFO - ==================================================
+2023-08-17 09:22:50,418 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:10
+2023-08-17 09:22:51,674 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:23
+2023-08-17 09:22:52,748 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:13
+2023-08-17 09:22:53,834 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:5
+2023-08-17 09:22:54,883 - logger - INFO - Processing complete.
+2023-08-17 09:38:46,839 - logger - INFO - ==================================================
+2023-08-17 09:38:46,839 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:10
+2023-08-17 09:38:52,407 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:18
+2023-08-17 09:39:57,944 - logger - INFO - ==================================================
+2023-08-17 09:39:57,960 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:12
+2023-08-17 09:40:00,279 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:17
+2023-08-17 09:40:02,433 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:9
+2023-08-17 09:40:04,558 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:6
+2023-08-17 09:40:06,676 - logger - INFO - Processing complete.
+2023-08-17 09:40:37,948 - logger - INFO - ==================================================
+2023-08-17 09:40:37,948 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:15
+2023-08-17 09:40:40,264 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:21
+2023-08-17 09:40:42,399 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:13
+2023-08-17 09:40:44,524 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:6
+2023-08-17 09:40:46,643 - logger - INFO - Processing complete.
+2023-08-17 09:54:56,637 - logger - INFO - ==================================================
+2023-08-17 09:54:56,655 - logger - INFO - filename:XDU0.png, cnt_group_bboxs:2, cnt_single_object_bboxs:11
+2023-08-17 09:54:58,946 - logger - INFO - filename:XDU1.png, cnt_group_bboxs:3, cnt_single_object_bboxs:15
+2023-08-17 09:55:01,075 - logger - INFO - filename:XDU2.png, cnt_group_bboxs:2, cnt_single_object_bboxs:12
+2023-08-17 09:55:03,191 - logger - INFO - filename:XDU3.png, cnt_group_bboxs:1, cnt_single_object_bboxs:5
+2023-08-17 09:55:05,313 - logger - INFO - Processing complete.
+2023-08-17 09:56:04,924 - logger - INFO - ==================================================
+2023-08-17 09:56:04,938 - logger - INFO - filename:XDU0.png, cnt_group_gt_bboxs:2, cnt_gt_bboxs:8
+2023-08-17 09:56:07,002 - logger - INFO - filename:XDU1.png, cnt_group_gt_bboxs:3, cnt_gt_bboxs:19
+2023-08-17 09:56:09,081 - logger - INFO - filename:XDU2.png, cnt_group_gt_bboxs:2, cnt_gt_bboxs:12
+2023-08-17 09:56:11,175 - logger - INFO - filename:XDU3.png, cnt_group_gt_bboxs:1, cnt_gt_bboxs:7
+2023-08-17 09:56:13,254 - logger - INFO - Processing complete.
+2023-08-17 10:16:31,071 - logger - INFO - ==================================================
+2023-08-17 10:16:31,094 - logger - INFO - filename:XDU0.png, cnt_group_gt_bboxs:2, cnt_gt_bboxs:13
+2023-08-17 10:16:33,408 - logger - INFO - filename:XDU1.png, cnt_group_gt_bboxs:3, cnt_gt_bboxs:13
+2023-08-17 10:16:35,567 - logger - INFO - filename:XDU2.png, cnt_group_gt_bboxs:2, cnt_gt_bboxs:13
+2023-08-17 10:16:37,713 - logger - INFO - filename:XDU3.png, cnt_group_gt_bboxs:1, cnt_gt_bboxs:8
+2023-08-17 10:16:39,843 - logger - INFO - Processing complete.
+2023-08-17 10:19:17,456 - logger - INFO - ==================================================
+2023-08-17 10:19:17,471 - logger - INFO - filename:XDU0.png, cnt_group_gt_bboxs:2, cnt_gt_bboxs:12
+2023-08-17 10:19:19,786 - logger - INFO - filename:XDU1.png, cnt_group_gt_bboxs:3, cnt_gt_bboxs:22
+2023-08-17 10:19:21,951 - logger - INFO - filename:XDU2.png, cnt_group_gt_bboxs:2, cnt_gt_bboxs:10
+2023-08-17 10:19:24,111 - logger - INFO - filename:XDU3.png, cnt_group_gt_bboxs:1, cnt_gt_bboxs:5
+2023-08-17 10:19:26,250 - logger - INFO - Processing complete.
