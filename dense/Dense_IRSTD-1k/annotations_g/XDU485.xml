@@ -1,0 +1,17 @@
+<annotation>
+  <file_name>XDU485</file_name>
+  <size>
+    <width>512</width>
+    <height>512</height>
+    <depth>1</depth>
+  </size>
+  <object>
+    <name>Target</name>
+    <bndbox>
+      <xmin>332</xmin>
+      <ymin>344</ymin>
+      <xmax>347</xmax>
+      <ymax>368</ymax>
+    </bndbox>
+  </object>
+</annotation>

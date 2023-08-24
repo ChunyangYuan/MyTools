@@ -21,7 +21,7 @@ enlarge_flag = True
 padding = 0
 visualize = True
 data_root = 'E:\dataset\IRSTD-1k'
-idx_file = os.path.join(data_root, 'splits', 'test_.txt')
+idx_file = os.path.join(data_root, 'Splits', 'trainvaltest.txt')
 img_dir = os.path.join(data_root, 'IRSTD1k_Img')
 mask_dir = os.path.join(data_root, 'IRSTD1k_Label')
 bbox_dir = os.path.join(data_root, 'BBox_test')
@@ -30,7 +30,7 @@ if not os.path.exists(bbox_dir):
 
 
 def save_plot_image_cv2(img: np.ndarray,
-                        bboxes: List[Tuple[int]],
+                        bboxes: List[Tuple[int, int, int, int]],
                         idx: str,
                         output_dir: str,
                         show: bool = False):
@@ -40,7 +40,7 @@ def save_plot_image_cv2(img: np.ndarray,
 
     Args:
         img (np.ndarray): 图像数据
-        bboxes (List[Tuple[int]]): 目标边界框的坐标列表，格式(xmin, ymin, xmax, ymax)左上右下角坐标
+        bboxes (List[Tuple[int, int, int, int]]): 目标边界框的坐标列表，格式(xmin, ymin, xmax, ymax)左上右下角坐标
         idx (str): 图片名称(无扩展名)
         output_dir (str): 图片保存路径
         show (bool, optional): 是否可视化. Defaults to False.
@@ -63,13 +63,13 @@ def save_plot_image_cv2(img: np.ndarray,
         cv2.destroyAllWindows()
 
 
-def write_bbox_to_file(img: np.ndarray, bboxes: List[Tuple[int]], idx: str) -> None:
+def write_bbox_to_file(img: np.ndarray, bboxes: List[Tuple[int, int, int, int]], idx: str) -> None:
     """
     write_bbox_to_file 将目标框及图像其他信息写入xml文件
 
     Args:
         img (np.ndarray): 图像数据
-        bboxes (List[Tuple[int]]): 目标框列表，格式(xmin, ymin, xmax, ymax)左上右下角坐标
+        bboxes (List[Tuple[int, int, int, int]]): 目标框列表，格式(xmin, ymin, xmax, ymax)左上右下角坐标
         idx (str): 图像名称(无扩展名)
     """
 

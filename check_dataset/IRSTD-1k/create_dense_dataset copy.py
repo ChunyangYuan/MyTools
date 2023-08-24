@@ -71,7 +71,7 @@ def shrink_large_objects(image: np.ndarray,
         # Calculate the bounding rectangle for the contour
         x, y, w, h = cv2.boundingRect(contour)
 
-        if w > target_size or h > target_size:
+        if w >= target_size or h >= target_size:
             # Calculate the scaling factor to shrink to target size
             scale_factor = min(target_size / w, target_size / h)
 
@@ -84,7 +84,7 @@ def shrink_large_objects(image: np.ndarray,
             new_y = int(y + (h - new_h) / 2)
 
             # Crop the original region of interest and enlarge roi
-            padding = 5
+            padding = 1
             img_height, img_width = image.shape[:2]
 
             roi_image = image[max(
@@ -103,15 +103,15 @@ def shrink_large_objects(image: np.ndarray,
             # kernel_shape = cv2.MORPH_RECT
 
             # kernel = cv2.getStructuringElement(kernel_shape, kernel_size)
-            kernel = np.ones((5, 5), np.uint8)  # 5x5的正方形内核，可以根据需要调整大小
+            # kernel = np.ones((5, 5), np.uint8)  # 5x5的正方形内核，可以根据需要调整大小
 
             # 进行腐蚀操作
             # eroded_image = cv2.erode(roi_image, kernel, iterations=1)
-            kernel_size = (9, 9)
+            # kernel_size = (9, 9)
             # blurred = cv2.blur(roi_image, kernel_size)
-            blurred = cv2.medianBlur(roi_image, ksize=11)
+            # blurred = cv2.medianBlur(roi_image, ksize=7)
             # blurred = cv2.GaussianBlur(roi_image, kernel_size, 0)
-            eroded_image = cv2.erode(blurred, kernel, iterations=1)
+            # eroded_image = cv2.erode(blurred, kernel, iterations=1)
             # blurred_mask = cv2.GaussianBlur(roi_mask, kernel_size, 0)
             # blurred_mask[blurred_mask != 0] = 255
 
@@ -127,8 +127,8 @@ def shrink_large_objects(image: np.ndarray,
             # image[max(
             #     0, y - padding):min(img_height, y + h + padding), max(0, x - padding):min(img_width, x + w + padding)] = avg_pixel_value
             # Update image with resized region
-            image[max(
-                0, y - padding):min(img_height, y + h + padding), max(0, x - padding):min(img_width, x + w + padding)] = eroded_image
+            # image[max(
+            #     0, y - padding):min(img_height, y + h + padding), max(0, x - padding):min(img_width, x + w + padding)] = blurred
             # image[new_y:new_y + new_h, new_x:new_x + new_w] = blurred
             image[new_y:new_y + new_h, new_x:new_x + new_w] = resized_roi_image
             # blurred = cv2.GaussianBlur(roi_image, kernel_size, 0)
@@ -155,50 +155,50 @@ def shrink_large_objects(image: np.ndarray,
     return image, mask
 
 
-def calculate_mean_around_box(image: np.ndarray,
-                              x: int,
-                              y: int,
-                              width: int,
-                              height: int) -> numpy.uint8:
-    """
-    calculate_mean_around_box 以给定坐标框为中心，计算其八邻域像素均值
+# def calculate_mean_around_box(image: np.ndarray,
+#                               x: int,
+#                               y: int,
+#                               width: int,
+#                               height: int) -> numpy.uint8:
+#     """
+#     calculate_mean_around_box 以给定坐标框为中心，计算其八邻域像素均值
 
-    Args:
-        image (np.ndarray): 图像数据
-        x (int): 左上角x坐标
-        y (int): 左上角y坐标
-        width (int): 目标框宽度
-        height (int): 目标框高度
+#     Args:
+#         image (np.ndarray): 图像数据
+#         x (int): 左上角x坐标
+#         y (int): 左上角y坐标
+#         width (int): 目标框宽度
+#         height (int): 目标框高度
 
-    Returns:
-        numpy.uint8: 返回八邻域像素均值
-    """
-    # Calculate the coordinates of the eight surrounding boxes
-    boxes = [
-        (x - width, y - height, x, y),             # 左上角
-        (x, y - height, x + width, y),             # 上
-        (x + width, y - height, x + width * 2, y),  # 右上角
-        (x - width, y, x, y + height),             # 左
-        (x + width, y, x + width * 2, y + height),  # 右
-        (x - width, y + height, x, y + height * 2),  # 左下角
-        (x, y + height, x + width, y + height * 2),  # 下
-        (x + width, y + height, x + width * 2, y + height * 2)  # 右下角
-    ]
+#     Returns:
+#         numpy.uint8: 返回八邻域像素均值
+#     """
+#     # Calculate the coordinates of the eight surrounding boxes
+#     boxes = [
+#         (x - width, y - height, x, y),             # 左上角
+#         (x, y - height, x + width, y),             # 上
+#         (x + width, y - height, x + width * 2, y),  # 右上角
+#         (x - width, y, x, y + height),             # 左
+#         (x + width, y, x + width * 2, y + height),  # 右
+#         (x - width, y + height, x, y + height * 2),  # 左下角
+#         (x, y + height, x + width, y + height * 2),  # 下
+#         (x + width, y + height, x + width * 2, y + height * 2)  # 右下角
+#     ]
 
-    # Ensure box boundaries are within the image dimensions
-    img_height, img_width = image.shape[:2]
-    boxes = [(max(0, x1), max(0, y1), min(img_width, x2), min(img_height, y2))
-             for x1, y1, x2, y2 in boxes]
+#     # Ensure box boundaries are within the image dimensions
+#     img_height, img_width = image.shape[:2]
+#     boxes = [(max(0, x1), max(0, y1), min(img_width, x2), min(img_height, y2))
+#              for x1, y1, x2, y2 in boxes]
 
-    means = []
-    for box in boxes:
-        x1, y1, x2, y2 = box
-        roi = image[y1:y2, x1:x2]
-        mean = np.mean(roi)
-        means.append(mean)
+#     means = []
+#     for box in boxes:
+#         x1, y1, x2, y2 = box
+#         roi = image[y1:y2, x1:x2]
+#         mean = np.mean(roi)
+#         means.append(mean)
 
-    overall_mean = np.mean(means).astype(np.uint8)
-    return overall_mean
+#     overall_mean = np.mean(means).astype(np.uint8)
+#     return overall_mean
 
 
 def create_dense_dataset(image: np.ndarray,
@@ -225,9 +225,9 @@ def create_dense_dataset(image: np.ndarray,
     # Find contours in the mask
     contours, _ = cv2.findContours(
         dense_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    group_bboxs = []
+    group_gt_bboxes = []
     # cnt = 0
-    single_object_bboxs = []
+    gt_bboxes = []
     for contour in contours:
         # Calculate the bounding rectangle for the contour
         x, y, w, h = cv2.boundingRect(contour)
@@ -286,19 +286,19 @@ def create_dense_dataset(image: np.ndarray,
         xmax_g = min(xmax_g, max(all_xmax))
         ymax_g = min(ymax_g, max(all_ymax))
         group_bbox = (xmin_g, ymin_g, xmax_g, ymax_g)
-        group_bboxs.append(group_bbox)
-        # single_object_bboxs
+        group_gt_bboxes.append(group_bbox)
+        # gt_bboxes
         single_object_bbox = [(xmin, ymin, xmax, ymax) for xmin, ymin, xmax, ymax in zip(
             all_xmin, all_ymin, all_xmax, all_ymax)]
-        single_object_bboxs.extend(single_object_bbox)
+        gt_bboxes.extend(single_object_bbox)
     # logger.info('==================cnt"{}'.format(cnt))
 
-    return dense_image, dense_mask, group_bboxs, single_object_bboxs
+    return dense_image, dense_mask, group_gt_bboxes, gt_bboxes
 
 
 def write_bbox_to_file(img_w: int,
                        img_h: int,
-                       bboxes: List[Tuple[int]],
+                       bboxes: List[Tuple[int, int, int, int]],
                        idx: str,
                        bbox_dir: str) -> None:
     """
@@ -307,7 +307,7 @@ def write_bbox_to_file(img_w: int,
     Args:
         img_w (int): image width
         img_h (int): image height
-        bboxes (List[Tuple[int]]): bboxs coordinates
+        bboxes (List[Tuple[int, int, int, int]]): bboxes coordinates
         idx (str): image name
         bbox_dir (str): the folder for saving xml file
     """
@@ -352,34 +352,36 @@ def write_bbox_to_file(img_w: int,
     root.write(save_xml_path, pretty_print=True)
 
 
-def save_plot_image(img: numpy.ndarray,
-                    bboxes: List[Tuple[int]],
-                    idx: str,
-                    output_dir: str,
-                    show: bool = False):
-    # 创建绘图对象
-    fig, ax = plt.subplots()
-    plt.axis('off')
-    plt.title(idx)
-    # 显示灰度图像
-    ax.imshow(img, cmap='gray', vmin=0, vmax=255)
-    for xmin, ymin, xmax, ymax in bboxes:
-        # 创建矩形框
-        rect = patches.Rectangle(
-            (xmin, ymin), xmax - xmin, ymax - ymin, linewidth=1, edgecolor='r', facecolor='none')
-        # 将矩形框添加到图像上
-        ax.add_patch(rect)
+# def save_plot_image(img: numpy.ndarray,
+#                     bboxes: List[Tuple[int, int, int, int]],
+#                     idx: str,
+#                     output_dir: str,
+#                     show: bool = False):
+#     # 创建绘图对象
+#     fig, ax = plt.subplots()
+#     plt.axis('off')
+#     plt.title(idx)
+#     # 显示灰度图像
+#     ax.imshow(img, cmap='gray', vmin=0, vmax=255)
+#     for xmin, ymin, xmax, ymax in bboxes:
+#         # 创建矩形框
+#         rect = patches.Rectangle(
+#             (xmin, ymin), xmax - xmin, ymax - ymin, linewidth=1, edgecolor='r', facecolor='none')
+#         # 将矩形框添加到图像上
+#         ax.add_patch(rect)
 
-    save_fig_path = os.path.expanduser(os.path.join(output_dir, idx+'.png'))
-    plt.savefig(save_fig_path, dpi=300, bbox_inches='tight', pad_inches=0)
-    # 显示图像, 手动关闭图片窗口, 程序才能继续执行
-    if show:
-        plt.show()
-        plt.close()
+#     save_fig_path = os.path.expanduser(os.path.join(output_dir, idx+'.png'))
+#     plt.savefig(save_fig_path, dpi=300, bbox_inches='tight', pad_inches=0)
+#     # 显示图像, 手动关闭图片窗口, 程序才能继续执行
+#     if show:
+#         plt.show(block=False)  # 设置为非阻塞模式
+#         # 设置定时器，延时1秒后关闭窗口
+#         plt.pause(1)
+#         plt.close()
 
 
 def save_plot_image_cv2(img: np.ndarray,
-                        bboxes: List[Tuple[int]],
+                        bboxes: List[Tuple[int, int, int, int]],
                         idx: str,
                         output_dir: str,
                         show: bool = False):
@@ -388,7 +390,7 @@ def save_plot_image_cv2(img: np.ndarray,
 
     Args:
         img (np.ndarray): 图像数据
-        bboxes (List[Tuple[int]]): 目标边界框的坐标列表，格式(xmin, ymin, xmax, ymax)左上右下角坐标
+        bboxes (List[Tuple[int, int, int, int]]): 目标边界框的坐标列表，格式(xmin, ymin, xmax, ymax)左上右下角坐标
         idx (str): 图片名称(无扩展名)
         output_dir (str): 图片保存路径
         show (bool, optional): 是否可视化. Defaults to False.
@@ -404,7 +406,7 @@ def save_plot_image_cv2(img: np.ndarray,
     save_fig_path = os.path.expanduser(os.path.join(output_dir, idx+'.png'))
     cv2.imwrite(save_fig_path, img_color)
 
-    # 显示图像, 手动关闭图片窗口, 程序才能继续执行
+    # 显示图像1s,自动关闭
     if show:
         cv2.imshow('Image with Bounding Boxes', img_color)
         cv2.waitKey(1000)  # show 1 s
@@ -413,14 +415,18 @@ def save_plot_image_cv2(img: np.ndarray,
 
 if __name__ == '__main__':
     # Folder paths
-    image_folder = r'data/image'  # Provide the path to the image folder
-    mask_folder = r'data/mask'    # Provide the path to the mask folder
-    output_folder = r'data/results/images'  # Provide the path to the output folder
-    mask_output_folder = r'data/results/masks'
-    group_xml_output = r'data/results/annotations_g'
-    xml_output = r'data/results/annotations'
+    # Provide the path to the image folder
+    image_folder = r'dense\image'
+    # Provide the path to the mask folder
+    mask_folder = r'dense\mask'
+    # Provide the path to the output folder
+    output_folder = r'dense\Dense_IRSTD-1k\image'
+    mask_output_folder = r'dense\Dense_IRSTD-1k\mask'
+    group_anno_output = r'dense\Dense_IRSTD-1k\annotations_g'
+    anno_output = r'dense\Dense_IRSTD-1k\annotations'
     visualize_group_gt = True
     visualize_gt = True
+    show = False
     # Create the folders if they don't exist
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
@@ -428,11 +434,11 @@ if __name__ == '__main__':
     if not os.path.exists(mask_output_folder):
         os.makedirs(mask_output_folder)
 
-    if not os.path.exists(group_xml_output):
-        os.makedirs(group_xml_output)
+    if not os.path.exists(group_anno_output):
+        os.makedirs(group_anno_output)
 
-    if not os.path.exists(xml_output):
-        os.makedirs(xml_output)
+    if not os.path.exists(anno_output):
+        os.makedirs(anno_output)
 
     # Process images in the folder
     for file_name in os.listdir(image_folder):
@@ -447,11 +453,19 @@ if __name__ == '__main__':
         processed_image, processed_mask = shrink_large_objects(
             image.copy(), mask.copy())
 
+        # 创建一个新窗口，并在窗口中显示两张图片
+        combined_image = cv2.hconcat([processed_image, processed_mask])
+        cv2.imshow('Combined Images', combined_image)
+        # 等待用户按下任意按键
+        cv2.waitKey(0)
+        # 关闭窗口
+        cv2.destroyAllWindows()
+
         # Generate a dense dataset using the new function
-        dense_image, dense_mask, group_bboxs, single_object_bboxs = create_dense_dataset(
+        dense_image, dense_mask, group_gt_bboxes, gt_bboxes = create_dense_dataset(
             processed_image.copy(), processed_mask.copy(), max_copies=7, max_offset=10)
-        logger.info('filename:{}, cnt_group_bboxs:{}, cnt_single_object_bboxs:{}'.format(file_name,
-                                                                                         len(group_bboxs), len(single_object_bboxs)))
+        logger.info('filename:{}, cnt_group_gt_bboxes:{}, cnt_gt_bboxes:{}'.format(file_name,
+                                                                                   len(group_gt_bboxes), len(gt_bboxes)))
 
         # Save the dense dataset(png format)
         file_name = os.path.splitext(file_name)[0]+'.png'
@@ -461,21 +475,32 @@ if __name__ == '__main__':
         cv2.imwrite(output_image_path, dense_image)
         cv2.imwrite(output_mask_path, dense_mask)
 
-        # create single object xml annotation
+        # create single object xml annotation(with gt_bboxes)
         write_bbox_to_file(img_w=dense_image.shape[1], img_h=dense_image.shape[0],
-                           bboxes=single_object_bboxs, idx=os.path.splitext(file_name)[0], bbox_dir=xml_output)
-        # visualize and save
+                           bboxes=gt_bboxes, idx=os.path.splitext(file_name)[0], bbox_dir=anno_output)
+
+        # create group xml(dense objects) annotation(with group_gt_bboxes)
+        write_bbox_to_file(img_w=dense_image.shape[1], img_h=dense_image.shape[0],
+                           bboxes=group_gt_bboxes, idx=os.path.splitext(file_name)[0], bbox_dir=group_anno_output)
+        # # visualize and save for mask with gt_bboxes
         if visualize_gt:
             save_plot_image_cv2(
-                img=dense_image, bboxes=single_object_bboxs, idx=os.path.splitext(file_name)[0], output_dir=xml_output, show=True)
+                img=dense_mask, bboxes=gt_bboxes, idx=os.path.splitext(file_name)[0]+'_mask', output_dir=anno_output, show=show)
 
-        # create group xml(dense objects) annotation
-        write_bbox_to_file(img_w=dense_image.shape[1], img_h=dense_image.shape[0],
-                           bboxes=group_bboxs, idx=os.path.splitext(file_name)[0], bbox_dir=group_xml_output)
-        # visualize and save
+        # visualize and save for mask with group_gt_bboxes
         if visualize_group_gt:
-            save_plot_image(
-                img=dense_mask, bboxes=group_bboxs, idx=os.path.splitext(file_name)[0], output_dir=group_xml_output, show=True)
+            save_plot_image_cv2(
+                img=dense_mask, bboxes=group_gt_bboxes, idx=os.path.splitext(file_name)[0]+'_mask', output_dir=group_anno_output, show=show)
+
+        # visualize and save for image with gt_bboxes
+        if visualize_gt:
+            save_plot_image_cv2(
+                img=dense_image, bboxes=gt_bboxes, idx=os.path.splitext(file_name)[0], output_dir=anno_output, show=show)
+
+        # visualize and save for image with group_gt_bboxes
+        if visualize_group_gt:
+            save_plot_image_cv2(
+                img=dense_image, bboxes=group_gt_bboxes, idx=os.path.splitext(file_name)[0], output_dir=group_anno_output, show=show)
 
     # Display completion message
-    logger.info('Processing complete.')
+    logger.info('Processed completely.')

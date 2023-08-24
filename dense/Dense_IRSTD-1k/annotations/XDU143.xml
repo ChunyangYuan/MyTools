@@ -1,0 +1,35 @@
+<annotation>
+  <file_name>XDU143</file_name>
+  <size>
+    <width>512</width>
+    <height>512</height>
+    <depth>1</depth>
+  </size>
+  <object>
+    <name>Target</name>
+    <bndbox>
+      <xmin>93</xmin>
+      <ymin>304</ymin>
+      <xmax>96</xmax>
+      <ymax>312</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>Target</name>
+    <bndbox>
+      <xmin>90</xmin>
+      <ymin>302</ymin>
+      <xmax>91</xmax>
+      <ymax>305</ymax>
+    </bndbox>
+  </object>
+  <object>
+    <name>Target</name>
+    <bndbox>
+      <xmin>104</xmin>
+      <ymin>313</ymin>
+      <xmax>105</xmax>
+      <ymax>314</ymax>
+    </bndbox>
+  </object>
+</annotation>

@@ -8,9 +8,9 @@
   <object>
     <name>Target</name>
     <bndbox>
-      <xmin>217</xmin>
-      <ymin>314</ymin>
-      <xmax>240</xmax>
+      <xmin>218</xmin>
+      <ymin>312</ymin>
+      <xmax>238</xmax>
       <ymax>332</ymax>
     </bndbox>
   </object>
